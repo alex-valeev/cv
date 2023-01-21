@@ -1,42 +1,102 @@
-# This is a basic workflow to help you get started with Actions
+# # This is a basic workflow to help you get started with Actions
 
-name: CI
+# name: CI
 
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+# # Controls when the workflow will run
+# on:
+#   # Triggers the workflow on push or pull request events but only for the "main" branch
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs:
+#   # This workflow contains a single job called "build"
+#   build:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
+
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v3
+
+#       # Runs a single command using the runners shell
+#       - name: Builld document
+#         uses: xu-cheng/latex-action@v2
+#         with:
+#           root_file: cv.tex
+#           working_directory: src/
+#           args: -jobname=my_doc -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+#           compiler: latexmk
+
+#       # Runs a set of commands using the runners shell
+#       - name: Upload pdf document
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: my_doc
+#           path: src/my_doc.pdf
+
+name: Build and deploy latex sources to GitHub Pages
+
+on: push
+
 jobs:
-  # This workflow contains a single job called "build"
+
   build:
-    # The type of runner that the job will run on
+
+    # Базовая ОС, на которой будут исполняться команды. Оставим ubuntu
+
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: Builld document
-        uses: xu-cheng/latex-action@v2
-        with:
-          root_file: cv.tex
-          working_directory: src/
-          args: -jobname=my_doc -pdf -file-line-error -halt-on-error -interaction=nonstopmode
-          compiler: latexmk
+    # Необходимо использовать этот action, чтобы получить содержимое репо
 
-      # Runs a set of commands using the runners shell
-      - name: Upload pdf document
-        uses: actions/upload-artifact@v2
-        with:
-          name: my_doc
-          path: src/my_doc.pdf
+    - uses: actions/checkout@v2
+
+    # Компилируем документ
+
+    - name: Build document
+
+      uses: xu-cheng/latex-action@v2
+
+      with:
+
+        # Переименуйте, если у вас другой файл
+
+        root_file: cv.tex
+
+        # Больше параметров в офф. документации
+
+        working_directory: src/
+
+        # Аргументы, к которыми запускать компилятор (latexmk)
+
+        # -jobname=<name> дает возможность поменять имя выходного файла
+
+        args: -jobname=my_doc -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+        compiler: latexmk
+
+    # Загружаем собранные pdf-файлы
+
+    - name: Upload pdf document
+
+      uses: actions/upload-artifact@v2
+
+      with:
+
+        # Это значение используется как ключ в хранилище
+
+        name: my_doc
+
+        # Путь до собранного pdf. Может содержать «*», «**»
+
+        # Здесь это <working_directory>/<jobname>.pdf
+
+        path: src/my_doc.pdf
