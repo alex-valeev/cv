@@ -30,7 +30,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv.tex
-          working_directory: dir/
+          working_directory: src/
           args: -jobname=my_doc -pdf -file-line-error -halt-on-error -interaction=nonstopmode
           compiler: latexmk
 
@@ -39,4 +39,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: my_doc
-          path: dir/my_doc.pdf
+          path: src/my_doc.pdf
