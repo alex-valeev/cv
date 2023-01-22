@@ -37,7 +37,8 @@ jobs:
         id: vars
         run: |
           echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-          echo "SHA8=$(echo ${ GITHUB_SHA } | cut -c1-8)" >> $GITHUB_OUTPUT
+          echo "SHA8=$(echo ${GITHUB_SHA::8})" >> $GITHUB_OUTPUT
+# echo "SHA8=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
