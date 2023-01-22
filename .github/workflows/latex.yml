@@ -36,7 +36,7 @@ jobs:
         id: vars
         run: |
           echo «::set-output name=date::$(date +'%Y-%m-%d')»
-          echo «::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)» 
+          echo «::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)»
       
       - name: Download artifacts
         uses: actions/download_artifact@v2
@@ -47,7 +47,7 @@ jobs:
         uses: actions/create_release@v1
         id: create_release
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.CV}}
         with:
           tag_name: cv_${{ steps.vars.outputs.date }}-${{ steps.vars.outputs.sha8 }}
           release_name: Action document (version ${{ steps.vars.outputs.date }})
@@ -57,7 +57,7 @@ jobs:
         - name: Upload pdf asset
           uses: actions/upload-release-asset@v1
           env:
-            GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            GITHUB_TOKEN: ${{secrets.CV}}
           with:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
             assets_path: ./cv.pdf
