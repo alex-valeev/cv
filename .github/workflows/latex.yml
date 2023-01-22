@@ -16,7 +16,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv.tex
-          working_directory: source/
+          # working_directory: source/
           args: -jobname=cv -pdf -file-line-error -halt-on-error -interaction=nonstopmode
           compiler: latexmk
 
@@ -24,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cv
-          path: source/cv.pdf
+          path: cv.pdf
 # 
 # name: Release Compiled PDF 
 # on: push
