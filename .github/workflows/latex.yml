@@ -17,14 +17,14 @@ jobs:
         with:
           root_file: cv.tex
           # working_directory: src/
-          args: -jobname=cv_gen -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+          args: -jobname=cv -pdf -file-line-error -halt-on-error -interaction=nonstopmode
           compiler: latexmk
 
       - name: Upload pdf document
         uses: actions/upload-artifact@v2
         with:
           name: cv
-          path: cv.pdf
+          path: cv
 # 
 # name: Release Compiled PDF 
 # on: push
