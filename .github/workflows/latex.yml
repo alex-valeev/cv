@@ -28,6 +28,7 @@ jobs:
   
   deploy:
     runs-on: ubuntu-latest
+    permissions: write-all
     # Только master
     # if: github.ref == 'refs/heads/master'
     needs: [build]
