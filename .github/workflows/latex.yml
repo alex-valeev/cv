@@ -42,7 +42,7 @@ jobs:
         with:
           name: cv
       - name: Create release
-        uses: actions/create_release@v1
+        uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{secrets.CV}}
