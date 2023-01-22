@@ -48,7 +48,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: cv-upd15
+          tag_name: cv-upd16
           # tag_name: cv-${{ steps.vars.outputs.date }}-${{ steps.vars.outputs.sha8 }}
           release_name: Action document (version ${{ steps.vars.outputs.date }})
           draft: false
@@ -59,6 +59,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          assets_path: cv.pdf
-          assets_name: cv.pdf
+          asset_path: cv.pdf
+          asset_name: cv.pdf
           asset_content_type: application/pdf
