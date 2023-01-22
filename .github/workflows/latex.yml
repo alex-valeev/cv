@@ -52,4 +52,4 @@ jobs:
         with:
           file: cv.tex
           args: -pdf
-      - run: '(test -f test.pdf && echo PDF exists) || (echo PDF does not exist && exit 1)'
+      - run: '(cv -f cv.pdf && echo PDF exists) || (echo PDF does not exist && exit 1)'
